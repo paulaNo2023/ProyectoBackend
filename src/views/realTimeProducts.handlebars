@@ -1,0 +1,53 @@
+<div class="d-flex justify-content-evenly">
+    <div>
+        <form class=" w-75 p-3">
+            <div class="mb-1">
+                <label for="title" class="form-label">Título: </label>
+                <input type="text" class="form-control" id="title">
+            </div>
+            <div class="mb-1">
+                <label for="description" class="form-label">Descripción: </label>
+                <input type="text" class="form-control" id="description">
+            </div>
+            <div class="mb-1">
+                <label for="price" class="form-label">Precio: </label>
+                <input type="text" class="form-control" id="price">
+            </div>
+            <div class="mb-1">
+                <label for="thumbnails" class="form-label">Thumbnails: </label>
+                <input type="text" class="form-control" id="thumbnails">
+            </div>
+            <div class="mb-1">
+                <label for="code" class="form-label">Código: </label>
+                <input type="text" class="form-control" id="code">
+            </div>
+            <div class="mb-1">
+                <label for="stock" class="form-label">Cantidad disponible: </label>
+                <input type="text" class="form-control" id="stock">
+            </div>
+            <div class="mb-1">
+                <label for="status" class="form-label">Estado: </label>
+                <input type="text" class="form-control" id="status">
+            </div>
+            <div class="mb-1">
+                <label for="category" class="form-label">Categoria: </label>
+                <input type="text" class="form-control" id="category">
+            </div>
+            <button type="submit" class="btn btn-primary mt-1">Crear</button>
+        </form>
+        <form class=" w-50 p-3">
+            <div class="mb-1">
+                <label for="title" class="form-label">ID </label>
+                <input type="text" class="form-control" id="title">
+            </div>
+            <button type="submit" class="btn btn-danger mt-1">Eliminar</button>
+        </form>
+    </div>
+    <ul class="list-group w-75 p-3">
+        {{#each products}}
+        <li class="list-group-item">{{id}}. <b>{{title}}</b>: {{description}}</li>
+        {{/each}}
+    </ul>
+</div>
+<script src="./socket.io/socket.io.js"></script>
+<script src="./js/index.js"></script>
