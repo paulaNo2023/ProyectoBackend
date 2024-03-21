@@ -1,0 +1,42 @@
+<h1>Products</h1>
+<div class="card-group ms-3 me-3 mb-3">
+    {{#each response.payload.products}}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{title}}</h5>
+            <p class="card-text">{{description}}</p>
+            <h6>Price: </h6>
+            <p class="card-text">{{price}}</p>
+            <h6>Stock: </h6>
+            <p class="card-text">{{stock}}</p>
+            <a href="#" class="btn btn-primary">Agregar al carrito</a>
+        </div>
+    </div>
+    {{/each}}
+</div>
+<div class="d-flex justify-content-end">
+    <p><b>Current page:</b> {{response.page}}</p>
+</div>
+<div class="d-flex justify-content-end">
+    <p><b>Total pages:</b> {{response.totalPages}}</p>
+</div>
+<div class="pagination justify-content-end">
+    {{#if response.hasPrevPage}}
+    <li class="page-item">
+      <a class="page-link" href={{response.prevLink}}>Previous</a>
+    </li>
+    {{else}}
+        <li class="page-item disabled">
+      <a class="page-link">Previous</a>
+    </li>
+    {{/if}}
+    {{#if response.hasNextPage}}
+    <li class="page-item">
+      <a class="page-link" href={{response.nextLink}}>Next</a>
+    </li>
+    {{else}}
+        <li class="page-item disabled">
+      <a class="page-link">Next</a>
+    </li>
+    {{/if}}
+</div>

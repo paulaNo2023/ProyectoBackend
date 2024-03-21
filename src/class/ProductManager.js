@@ -21,19 +21,7 @@ class ProductManager{
         this.products.push(producto);
         await fs.promises.writeFile(this.PATH, JSON.stringify(this.products, null, '\t'), "utf-8").then(console.log("El producto quedo guardado"));
     }
-    
-    
-    /*generarId() {
-      let id = 0;
-    
-      if (this.products.length === 0) {
-        id = 1;
-      } else {
-        id = this.products[this.products.length - 1].id + 1;
-      }
-    
-      return id;
-    }*/
+  
     
     getProductById = async(id) => {
       let productSt = await fs.promises.readFile(this.PATH, "utf-8");

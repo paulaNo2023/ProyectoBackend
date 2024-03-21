@@ -1,0 +1,12 @@
+<h1>Cart: </h1>
+<div class="card-group ms-3 me-3 mb-3">
+    {{#each products}}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{product.title}}</h5>
+            <h6>Quantity </h6>
+            <p class="card-text">{{./quantity}}</p>
+        </div>
+    </div>
+    {{/each}}
+</div>
