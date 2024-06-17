@@ -30,6 +30,7 @@ app.use(express.static(__dirname + '/public'));
 app.use('/api/products', products);
 app.use('/api/carts', carts);
 app.use('/', views);
+app.use('/api/sessions', sessionRouter);
 
 const httpServer = app.listen(8080, () => console.log('El servidor inició en el puerto 8080'));
 
