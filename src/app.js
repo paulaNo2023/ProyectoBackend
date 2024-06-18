@@ -21,7 +21,7 @@ const connection = mongoose.connect('mongodb+srv://paulasanabria97:Televisor1997
 app.use(cookieParser());
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: 'mongodb+srv://juancuevac:GZ5PZnbPrENkgvip@cluster0.6si3rcv.mongodb.net/?retryWrites=true&w=majority',
+        mongoUrl: 'mongodb+srv://paulasanabria97:Televisor1997@@cluster0.unlpvw8.mongodb.net//?retryWrites=true&w=majority',
         mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
     }),
     secret: 'ecommerce',
