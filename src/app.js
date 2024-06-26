@@ -10,6 +10,9 @@ import carts from './routes/carts.router.js';
 import views from './routes/views.router.js';
 import sessionRouter from './routes/session.router.js';
 import MessagesManager from './dao/dbManagers/messages.js';
+import passport from 'passport';
+import initializePassport from './configura/passport.configura.js';
+import initializePassportGH from './configura/passportGit.configura.js';
 
 
 import __dirname from './utils.js';
@@ -28,7 +31,10 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
-
+initializePassport();
+initializePassportGH();
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

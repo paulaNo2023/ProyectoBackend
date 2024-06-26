@@ -9,12 +9,24 @@ const usersSchema = mongoose.Schema(
         last_name: String,
         email: String,
         age: Number,
-        password: String
+        password: String,
+        cart: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "carts"
+        }, 
+        role: {
+            type: String,
+            default: "user"
+        }
     },
     {
         versionKey: false
     });
-usersSchema.plugin(mongoosepaginate);
-const usersModel = mongoose.model(userCollection, usersSchema);
+    usersSchema.pre('findOne', function (next) {
+        this.populate("cart");
+        next();
+    })
+    usersSchema.plugin(mongoosepaginate);
+    const usersModel = mongoose.model(userCollection, usersSchema);
 
-export default usersModel;
+   
