@@ -13,26 +13,30 @@ import MessagesManager from './dao/dbManagers/messages.js';
 import passport from 'passport';
 import initializePassport from './configura/passport.configura.js';
 import initializePassportGH from './configura/passportGit.configura.js';
-
+import initializePassportJWT from './config/passportJWT.config.js';
+import config from './config/config.js';
 
 import __dirname from './utils.js';
 import { Server } from 'socket.io'
 
+
+
 const app = express();
-const connection = mongoose.connect('mongodb+srv://paulasanabria97:Televisor1997@@cluster0.unlpvw8.mongodb.net/')
+const connection = mongoose.connect(mongoUrl)
 
 app.use(cookieParser());
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: 'mongodb+srv://paulasanabria97:Televisor1997@@cluster0.unlpvw8.mongodb.net//?retryWrites=true&w=majority',
+        mongoUrl: mongoUrl,
         mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
     }),
-    secret: 'ecommerce',
+    secret: 'sessionKey',
     resave: false,
     saveUninitialized: false
 }));
 initializePassport();
 initializePassportGH();
+initializePassportJWT();
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
@@ -46,9 +50,9 @@ app.use(express.static(__dirname + '/public'));
 app.use('/api/products', products);
 app.use('/api/carts', carts);
 app.use('/', views);
-app.use('/api/sessions', sessionRouter);
+app.use('/api/sessions', sessionRouter.getRouter());
 
-const httpServer = app.listen(8080, () => console.log('El servidor inició en el puerto 8080'));
+const httpServer = app.listen(PORT, () => console.log('El servidor inició en el puerto' + PORT));
 
 const io = new Server(httpServer);
 
