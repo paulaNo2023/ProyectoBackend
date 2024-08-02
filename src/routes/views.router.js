@@ -1,12 +1,13 @@
 import { Router } from "express";
-import ProductManager from "../dao/dbManagers/products.js";
-import CartManager from '../dao/dbManagers/Carts.js';
+import {ProductsService} from "../service/products.service.js";
+//import CartManager from '../dao/dbManagers/Carts.js';
 
 
 const URL = 'http://localhost:8080/products'
 
-const productManager = new ProductManager();
-const cartManager = new CartManager();
+
+const productsService = new ProductsService();
+//const cartManager = new CartManager();
 
 
 const router = Router();
@@ -55,7 +56,7 @@ router.get('/products', async (req, res) => {
     }
     let prevLink = link;
     let nextLink = link;
-    const productos = await productManager.getProducts(limit, page, query, sort);
+    const productos = await productsService.getAll(limit, page, query, sort);
     if (productos.error) {
         response = {
             status: 'error',
@@ -90,11 +91,11 @@ router.get('/products', async (req, res) => {
     res.render('products', {response});
 });
 
-router.get('/carts/:cid', async (req, res) => {
-    let cid = req.params.cid;
-    const products = await cartManager.getProductsInCart(cid);
-    res.render('carts', {products});
-});
+//router.get('/carts/:cid', async (req, res) => {
+//    let cid = req.params.cid;
+//    const products = await cartManager.getProductsInCart(cid);
+//    res.render('carts', {products});
+//});
 
 router.get('/', async (req, res) => {
     res.render('login');

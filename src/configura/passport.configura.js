@@ -1,13 +1,13 @@
 import passport from "passport";
 import local from "passport-local";
-import usersModel from "../dao/models/users.js";
+import usersModel from "../dao/models/users.model.js";
 import { createHash, isValidPassword } from "../utils.js";
-import CartManager from '../dao/fileManagers/CartManager.js';
+import {CartsDAO} from '../dao/dbManagers/Carts.manager.js';
 
 
 
 const LocalStrategy = local.Strategy;
-const cartManager = new CartManager();
+const cartsDAO = new CartsDAO();
 
 const initializePassport = () => {
     passport.use('register', new LocalStrategy({
@@ -16,7 +16,7 @@ const initializePassport = () => {
         const { first_name, last_name, age } = req.body;
         try {
           let user = await usersModel.findOne({ email: email });
-          let newCart = await cartManager.createCart();
+          let newCart = await cartsDAO.create();
 
 
             if (user) {
@@ -63,6 +63,10 @@ const initializePassport = () => {
                     role: "admin"
 
                 }
+                if(!user) {
+                    done(null, false)
+                }
+
 
                 if (!user && email == ! "Coder@coder.com" && password == ! "adminCod3r123") {
 
@@ -75,6 +79,7 @@ const initializePassport = () => {
                     return done(null, adminUser)
 
                 }
+                console.log(user);
 
                 if (!isValidPassword(user.password, password)) return done(null, false)
 

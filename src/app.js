@@ -8,8 +8,8 @@ import mongoose from 'mongoose';
 import products from './routes/products.router.js';
 import carts from './routes/carts.router.js';
 import views from './routes/views.router.js';
-import sessionRouter from './routes/session.router.js';
-import MessagesManager from './dao/dbManagers/messages.js';
+import sessions from './routes/session.router.js';
+//import MessagesManager from './dao/dbManagers/messages.js';
 import passport from 'passport';
 import initializePassport from './configura/passport.configura.js';
 import initializePassportGH from './configura/passportGit.configura.js';
@@ -19,7 +19,9 @@ import config from './config/config.js';
 import __dirname from './utils.js';
 import { Server } from 'socket.io'
 
-
+const PORT = config.port;
+const mongoUrl = config.mongoUrl;
+const sessionKey = config.sessionKey
 
 const app = express();
 const connection = mongoose.connect(mongoUrl)
@@ -50,25 +52,24 @@ app.use(express.static(__dirname + '/public'));
 app.use('/api/products', products);
 app.use('/api/carts', carts);
 app.use('/', views);
-app.use('/api/sessions', sessionRouter.getRouter());
+app.use('/api/sessions', sessions);
 
 const httpServer = app.listen(PORT, () => console.log('El servidor inició en el puerto' + PORT));
 
 const io = new Server(httpServer);
 
-const messages = [];
-const messagesManager = new MessagesManager();
+//const messagesController = new MessagesController();
 
-io.on('connection', socket => {
-    console.log('Cliente conectado');
-    socket.on('mensaje', data => {
-        console.log(data);
-        if (data.accion === 'guardarMensaje') {
-                let message = {
-                    user: data.user,
-                    message: data.message
-                }
-                messagesManager.createMessage(message);
-        }
-    })
-})
+//io.on('connection', socket => {
+//    console.log('Cliente conectado');
+//    socket.on('mensaje', data => {
+//        console.log(data);
+//        if (data.accion === 'guardarMensaje') {
+//                let message = {
+//                    user: data.user,
+//                    message: data.message
+//                }
+//                messagesManager.createMessage(message);
+//        }
+//    })
+//})

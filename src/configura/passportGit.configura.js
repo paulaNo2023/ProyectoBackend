@@ -1,8 +1,8 @@
 import passport from "passport";
 import GitHubStrategy from "passport-github2"
-import usersModel from "../dao/models/users.js";
+import { UsersDAO} from "../dao/dbManagers/users.manager.js";
 
-
+const usersDAO = new UsersDAO();
 
 
 const initializePassportGH = () => {
@@ -37,7 +37,7 @@ const initializePassportGH = () => {
 
                         };
 
-                        let result = await usersModel.create(newUser);
+                        let result = await usersDAO.create(newUser);
 
                         done(null, result);
 
