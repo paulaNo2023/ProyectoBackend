@@ -29,4 +29,4 @@ const usersSchema = mongoose.Schema(
     usersSchema.plugin(mongoosepaginate);
     const usersModel = mongoose.model(userCollection, usersSchema);
 
-   
+    export default usersModel;

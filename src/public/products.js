@@ -8,3 +8,28 @@ logout.addEventListener('click', async () => {
         window.location.href = '/';
     }
 });
+
+const cartView = document.getElementById('cartview');
+cartView.addEventListener('click', async () => {
+        window.location.href = '/carts/' + cart;
+});
+
+document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', function() {
+        const productId = this.dataset.id;
+        console.log(productId);
+        fetch('/api/carts/' + cart + '/product/' + productId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    });
+});

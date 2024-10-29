@@ -1,4 +1,16 @@
+<script>
+    const cart = {{{json user.cart}}};
+</script>
 <h1>Products</h1>
+<div class="d-flex justify-content-end">
+    <button class="btn btn-danger" id="logout">Logout</button>
+</div>
+<div class="d-flex justify-content-center mt-2">
+    <button class="btn btn-success" id="cartview">Carrito</button>
+</div>
+<h2>Bienvenido! {{user.name}}</h2>
+<h3>Email: {{user.email}}</h3>
+<h3>Rol: {{user.role}}</h3>
 <div class="card-group ms-3 me-3 mb-3">
     {{#each response.payload.products}}
     <div class="card" style="width: 18rem;">
@@ -9,7 +21,7 @@
             <p class="card-text">{{price}}</p>
             <h6>Stock: </h6>
             <p class="card-text">{{stock}}</p>
-            <a href="#" class="btn btn-primary">Agregar al carrito</a>
+            <a class="btn btn-primary add-to-cart" data-id="{{_id}}">Agregar al carrito</a>
         </div>
     </div>
     {{/each}}
